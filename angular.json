@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "sand-ui": "apps/sand-ui",
+    "sand-ui-e2e": "apps/sand-ui-e2e"
+  }
+}
