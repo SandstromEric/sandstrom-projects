@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
+    "element-highlighter": "libs/element-highlighter",
+    "material": "libs/material",
     "sand-ui": "apps/sand-ui",
     "sand-ui-e2e": "apps/sand-ui-e2e"
   }
