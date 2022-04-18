@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@sandstrom-projects/material": ["libs/material/src/index.ts"],
+      "@sandstroms/element-highlighter": [
+        "libs/element-highlighter/src/index.ts"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

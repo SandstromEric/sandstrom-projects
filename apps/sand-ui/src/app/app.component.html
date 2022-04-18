@@ -1,1 +1,32 @@
-<sandstrom-projects-nx-welcome></sandstrom-projects-nx-welcome>
+<div class="logo" (click)="toggleDrawer()">
+    <span>Sand</span>
+    <span>UI</span>
+</div>
+<header>
+    <h1>Header</h1>
+</header>
+<aside [class.opened]="menuOpened">
+    <ul>
+        <li matRipple>
+            <mat-icon>home</mat-icon>
+            <span>Dashboard</span>
+        </li>
+    </ul>
+</aside>
+<main>
+    <!-- <h1 highlightElement="test1" highlightNext="test2" (click)="updateOverlay('test1')">test</h1>
+    <h1 highlightElement="test2" (click)="closeOverlay()">test</h1> -->
+
+    <div class="grid">
+        <div spHighlight="test1" spHighlightNext="test2" spHighlightTooltip="Here you can do stuff" (click)="updateOverlay('test1')">
+            <div>Test 1</div>
+        </div>
+        <div spHighlight="test2" spHighlightNext="test3">Test 2</div>
+        <div spHighlight="test3" spHighlightNext="test4">Test 3</div>
+        <div spHighlight="test4" (spHighlightBackDropClick)="onBackDropClick($event)"
+            spHighlightDisableBackdropAutoClose spHighlightTooltip="This is the end">Test 4</div>
+    </div>
+    <!-- <router-outlet></router-outlet> -->
+</main>
+
+<div class="overlay"></div>
