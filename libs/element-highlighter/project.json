@@ -1,0 +1,42 @@
+{
+  "projectType": "library",
+  "root": "libs/element-highlighter",
+  "sourceRoot": "libs/element-highlighter/src",
+  "prefix": "sandstrom-projects",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["dist/libs/element-highlighter"],
+      "options": {
+        "project": "libs/element-highlighter/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/element-highlighter/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/element-highlighter/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/element-highlighter"],
+      "options": {
+        "jestConfig": "libs/element-highlighter/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/element-highlighter/src/**/*.ts",
+          "libs/element-highlighter/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,91 @@
+
+    .highlighted {
+        z-index: 9999;
+        position: relative;
+
+        &~.highlight-tooltip {
+            opacity: 1;
+            
+        }
+        //animation: infinite-pulse 1s ease-in-out infinite;
+    }
+
+    .highlight-overlay {
+        --animation-duration: 500ms;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+        animation: fade-in var(--animation-duration) ease-in-out;
+
+        &.fade-out {
+            animation: fade-out var(--animation-duration);
+            opacity: 0;
+        }
+    }
+
+    .highlight-tooltip {
+        --animation-duration: 500ms;
+        z-index: 99999;
+        position: fixed;
+        background: white;
+        padding: 1rem 1rem 1rem 1rem;
+        opacity: 1;
+        border-radius: 3px;
+        animation: fade-in var(--animation-duration) ease-in-out;
+        //clip-path: polygon(0% 0%, 100% 0, 100% 80%, 50% 100%, 0 80%);
+
+        &:before {
+            content: "";
+            width: .5rem;
+            height: .5rem;
+            background-color: white;
+            position: absolute;
+            clip-path: polygon(50% 80%, 0 0, 100% 0);
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, 100%);
+        }
+
+        &.fade-out {
+            animation: fade-out var(--animation-duration);
+            opacity: 0;
+        }
+    }
+@keyframes infinite-pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
