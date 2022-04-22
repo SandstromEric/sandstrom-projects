@@ -89,7 +89,7 @@ export class AppComponent implements OnInit {
 | `@Input() spHighlightNext: string`                                                     | Key on which element to automatically highlight next when current highlight is closed |
 | `@Input() spHighlightTooltip: string`                                                  | Tooltip for highlight when opened                                                     |
 | `@Input() spHighlightDisableBackdropAutoClose: boolean`                                | Whether to automatically close the highlight on backdrop click                        |
-| `@Output() spHighlightBackDropClick: EventEmitter<{key: string, event: PointerEvent}>` | Whether to automatically close the highlight on backdrop click                        |
+| `@Output() spHighlightBackDropClick: EventEmitter<{key: string, event: PointerEvent}>` | EventEmitter for click events on backdrop                                             |
 
 ### ElementHighlighterService
 
