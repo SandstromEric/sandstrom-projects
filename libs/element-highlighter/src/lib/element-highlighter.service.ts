@@ -11,7 +11,7 @@ export class ElementHighlighterService {
         const defs = this.renderer.createElement('defs');
         this.renderer.appendChild(svg, defs);
         this.renderer.appendChild(document.body, svg); */
-        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        /* const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute('height',"0");
         svg.setAttribute('width',"0");
         var svgNS = svg.namespaceURI;
@@ -27,7 +27,7 @@ export class ElementHighlighterService {
         svg.appendChild(defs);
         defs.appendChild(clipPath);
         clipPath.appendChild(rect);
-        document.body.appendChild(svg);
+        document.body.appendChild(svg); */
     }
 
     get activeElementChanges() {
@@ -35,6 +35,10 @@ export class ElementHighlighterService {
     }
 
     setActiveElement(key: string) {
+        /* if(this.activeElementSubject.getValue() === key) {
+            this.close();
+        } */
+        
         this.activeElementSubject.next(key);
     }
 

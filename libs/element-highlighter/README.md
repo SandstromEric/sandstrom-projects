@@ -4,7 +4,7 @@ Angular Element Highlighter is an Angular library for highlighting elements with
 
 ## Prerequsites
 
-Requires version 10+ @angular/core and @angular/cdk
+Requires version >=10.0.0 of @angular/core and @angular/cdk
 
 ## Installation
 
@@ -28,10 +28,10 @@ export class Module {}
 ### Template
 
 ```HTML
-<div spHighlight="test1" spHighlightNext="test2" spHighlightTooltip="Tooltip text here.">
+<div spHighlight="test1" spHighlightNext="test2" spHighlightTooltip="Tooltip text here." spHighlightTooltipPosition="right">
     Test 1
 </div>
-<div spHighlight="test2" spHighlightNext="test3">
+<div spHighlight="test2" spHighlightNext="test3" spHighlightTooltipPosition="bottom">
     Test 2
 </div>
 <div spHighlight="test3" spHighlightNext="test4">
@@ -83,21 +83,28 @@ export class AppComponent implements OnInit {
 
 ### Properties
 
-| Name                                                                                   | Description                                                                           |
-| -------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `@Input() spHightlight: string`                                                        | Key for element to target highlighting                                                |
-| `@Input() spHighlightNext: string`                                                     | Key on which element to automatically highlight next when current highlight is closed |
-| `@Input() spHighlightTooltip: string`                                                  | Tooltip for highlight when opened                                                     |
-| `@Input() spHighlightDisableBackdropAutoClose: boolean`                                | Whether to automatically close the highlight on backdrop click                        |
-| `@Output() spHighlightBackDropClick: EventEmitter<{key: string, event: PointerEvent}>` | EventEmitter for click events on backdrop                                             |
+| Name                                                                                   | Description                                                                                                                                                                                          |
+| -------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@Input() spHightlight: string`                                                        | Key for element to target highlighting.                                                                                                                                                              |
+| `@Input() spHighlightNext: string`                                                     | Key on which element to automatically highlight next when current highlight is closed.                                                                                                               |
+| `@Input() spHighlightTooltip: string \| TemplateRef<any>`                              | Tooltip for highlight when opened.                                                                                                                                                                   |
+| `@Input() spHighlightTooltipPosition: SpHighlightTooltipPosition`                      | Sets the preffered position. If there is no space for the preffered position, it will try to automatically adjust in the order of how SpHighlightTooltipPosition is defined. Default value is 'top'. |
+| `@Input() spHighlightDisableBackdropAutoClose: boolean`                                | Whether to automatically close the highlight on backdrop click.                                                                                                                                      |
+| `@Output() spHighlightBackDropClick: EventEmitter<{key: string, event: PointerEvent}>` | EventEmitter for click events on backdrop.                                                                                                                                                           |
 
 ### ElementHighlighterService
 
-| Name                                             | Description                                          |
-| ------------------------------------------------ | ---------------------------------------------------- |
-| activeElementChanges: Observable<string \| null> | Observable that updates the current active element   |
-| setActiveElement(key: string): void              | Sets the current active element that matches the key |
-| close(): void                                    | Sets the current active element to null              |
+| Name                                               | Description                                           |
+| -------------------------------------------------- | ----------------------------------------------------- |
+| `activeElementChanges: Observable<string \| null>` | Observable that updates the current active element.   |
+| `setActiveElement(key: string): void`              | Sets the current active element that matches the key. |
+| `close(): void`                                    | Sets the current active element to null.              |
+
+### SpHighlightTooltipPosition
+
+```typescript
+export type SpHighlightTooltipPosition = 'top' | 'right' | 'left' | 'bottom';
+```
 
 ## License
 

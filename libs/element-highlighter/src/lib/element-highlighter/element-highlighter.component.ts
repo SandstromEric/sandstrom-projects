@@ -1,7 +1,8 @@
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, Renderer2, TemplateRef, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { distinctUntilChanged, firstValueFrom, fromEvent, skip, Subscription, takeUntil, timer } from 'rxjs';
 import { ElementHighlighterService } from '../element-highlighter.service';
+import { SpHighlightTooltipPosition } from '../element-highlighter.model';
 
 @Component({
     selector: '[spHighlight]',
@@ -9,10 +10,11 @@ import { ElementHighlighterService } from '../element-highlighter.service';
     styleUrls: ['./element-highlighter.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class ElementHighlighterComponent implements OnInit, OnDestroy {
+export class ElementHighlighterComponent implements AfterViewInit, OnDestroy {
     @Input('spHighlight') highlightElement = '';
     @Input('spHighlightNext') highlightNext = '';
-    @Input('spHighlightTooltip') highlightTooltip = '';
+    @Input('spHighlightTooltip') highlightTooltip: string | TemplateRef<any> = '';
+    @Input('spHighlightTooltipPosition') prefferedTooltipPosition: SpHighlightTooltipPosition = 'top'; 
     @Input('spHighlightDisableBackdropAutoClose')
     get highlightDisableBackdropAutoClose() { return this._highlightDisableBackdropAutoClose; }
     set highlightDisableBackdropAutoClose(value: BooleanInput) {
@@ -27,9 +29,9 @@ export class ElementHighlighterComponent implements OnInit, OnDestroy {
     resizeSubscription!: Subscription;
     private currentKey: string | null = null;
 
-    constructor(private elementRef: ElementRef, private highlightService: ElementHighlighterService, private renderer: Renderer2) { }
+    constructor(private elementRef: ElementRef, private highlightService: ElementHighlighterService, private renderer: Renderer2, private viewContainerRef: ViewContainerRef) { }
 
-    ngOnInit() {
+    ngAfterViewInit() {
         
         this.highlightSubscription = this.highlightService.activeElementChanges.pipe(
             skip(1),
@@ -40,7 +42,7 @@ export class ElementHighlighterComponent implements OnInit, OnDestroy {
                 this.positionElement();
             } else {
                 if (key !== this.highlightElement) {
-                    this.elementRef.nativeElement.classList.remove('highlighted');
+                    this.elementRef.nativeElement.classList.remove('sp-highlighted');
                 }
 
                 if (key === null) {
@@ -54,7 +56,7 @@ export class ElementHighlighterComponent implements OnInit, OnDestroy {
 
             if(this.currentKey === this.highlightElement && el) {
                 const boundingRect: DOMRect = el.getBoundingClientRect();
-                document.querySelector('.highlight-overlay')?.setAttribute('style', `
+                document.querySelector('.sp-highlight-overlay')?.setAttribute('style', `
                     clip-path: polygon(
                         0% 0%, 
                         0% 100%, 
@@ -67,13 +69,16 @@ export class ElementHighlighterComponent implements OnInit, OnDestroy {
                         100% 100%, 100% 0%
                     )`
                 );
-                document.querySelector('.highlight-tooltip')?.setAttribute('style', 
+                /* document.querySelector('.sp-highlight-tooltip')?.setAttribute('style', 
                 `
-                    top: ${boundingRect.top - 60}px;
+                    top: ${this.highlightTooltip instanceof TemplateRef ? `${boundingRect.top - 30}px` : `${boundingRect.top - 60}px`};
                     left: ${boundingRect.left + (boundingRect.width / 2)}px;
                     transform: translateX(-50%);
+                    padding: ${this.highlightTooltip instanceof TemplateRef ? '0' : '10px'};
                 `
-                );
+                ); */
+
+                this.checkTooltipPosition();
             }
         });
     }
@@ -90,9 +95,10 @@ export class ElementHighlighterComponent implements OnInit, OnDestroy {
 
     positionElement() {
         const boundingRect: DOMRect = this.elementRef.nativeElement.getBoundingClientRect();
-        this.elementRef.nativeElement.classList.add('highlighted');
+        this.elementRef.nativeElement.classList.add('sp-highlighted');
         const overlayEl = this.renderer.createElement('div');
-        this.renderer.addClass(overlayEl, 'highlight-overlay');
+        this.renderer.addClass(overlayEl, 'sp-highlight-overlay');
+        //this.renderer.addClass(document.body, 'sp-highlight-overlay-active');
         this.renderer.setStyle(overlayEl, 'clip-path', `
             polygon(
                 0% 0%, 
@@ -116,23 +122,113 @@ export class ElementHighlighterComponent implements OnInit, OnDestroy {
         });
 
         document.body.append(overlayEl);
+        
+        let tooltipEl;
+        if(this.highlightTooltip instanceof TemplateRef) {
+            tooltipEl = this.viewContainerRef.createEmbeddedView(this.highlightTooltip);
+        } else {
+            if(this.highlightTooltip?.length) {
+                tooltipEl = this.renderer.createElement('div');
+                tooltipEl.innerHTML = this.highlightTooltip;
+            }
+        }
 
-        if(this.highlightTooltip.length) {
-            const tooltipEl = this.renderer.createElement('div');
-            tooltipEl.innerHTML = this.highlightTooltip;
+        if(tooltipEl) {
+            const container = this.renderer.createElement('div');
+            this.renderer.addClass(container, 'sp-highlight-tooltip');
+            this.renderer.setStyle(container, 'padding', `${this.highlightTooltip instanceof TemplateRef ? '0' : '1rem'}`);
+            this.renderer.addClass(document.body, 'sp-highlight-overlay-active');
             
-            this.renderer.addClass(tooltipEl, 'highlight-tooltip');
-            this.renderer.setStyle(tooltipEl, 'top', `${boundingRect.top - 60}px`);
-            this.renderer.setStyle(tooltipEl, 'left', `${boundingRect.left + (boundingRect.width / 2)}px`);
-            this.renderer.setStyle(tooltipEl, 'transform', `translateX(-50%)`);
+            if(this.highlightTooltip instanceof TemplateRef) {
+                for ( var node of tooltipEl.rootNodes ) {
+                    this.renderer.appendChild(container, node);
+                }
+            } else {
+                this.renderer.appendChild(container, tooltipEl);
+            }
 
-            document.body.append(tooltipEl);
+            document.body.append(container);
+            dispatchEvent(new Event('resize'));
+        }
+        
+    }
+
+    checkTooltipPosition() {
+        const boundingRect: DOMRect = this.elementRef.nativeElement.getBoundingClientRect();
+        const container = document.querySelector('.sp-highlight-tooltip');
+        if(container) {
+            const tooltipRect: DOMRect = container.getBoundingClientRect();
+            const positions = {
+                top: () => {
+                    this.renderer.removeClass(container, 'bottom');
+                    this.renderer.removeClass(container, 'left');
+                    this.renderer.removeClass(container, 'right');
+                    this.renderer.addClass(container, 'top');
+                    container.setAttribute('style', `
+                        top: ${boundingRect.top - tooltipRect.height - 10}px;
+                        left: ${boundingRect.left + (boundingRect.width / 2)}px;
+                        padding: ${this.highlightTooltip instanceof TemplateRef ? '0' : '1rem'};
+                        transform: translateX(-50%);
+                    `);
+                },
+                right: () => {
+                    this.renderer.removeClass(container, 'top');
+                    this.renderer.removeClass(container, 'left');
+                    this.renderer.removeClass(container, 'bottom');
+                    this.renderer.addClass(container, 'right');
+                    container.setAttribute('style', `
+                        top: ${boundingRect.top + (boundingRect.height / 2) - 10}px;
+                        left: ${boundingRect.right + 10}px;
+                        padding: ${this.highlightTooltip instanceof TemplateRef ? '0' : '1rem'};
+                        transform: translateY(-50%);
+                    `);
+                },
+                left: () => {
+                    this.renderer.removeClass(container, 'top');
+                    this.renderer.removeClass(container, 'bottom');
+                    this.renderer.removeClass(container, 'right');
+                    this.renderer.addClass(container, 'left');
+                    container.setAttribute('style', `
+                        top: ${boundingRect.top + (boundingRect.height / 2) - 10}px;
+                        left: ${boundingRect.left - tooltipRect.width - 10}px;
+                        padding: ${this.highlightTooltip instanceof TemplateRef ? '0' : '1rem'};
+                        transform: translateY(-50%);
+                    `);
+                },
+                bottom: () => {
+                    this.renderer.removeClass(container, 'top');
+                    this.renderer.removeClass(container, 'left');
+                    this.renderer.removeClass(container, 'right');
+                    this.renderer.addClass(container, 'bottom');
+                    container.setAttribute('style', `
+                        top: ${boundingRect.bottom + 10}px;
+                        left: ${boundingRect.left + (boundingRect.width / 2)}px;
+                        padding: ${this.highlightTooltip instanceof TemplateRef ? '0' : '1rem'};
+                        transform: translateX(-50%);
+                    `);
+                }
+            }
+            
+            let checkOrder: SpHighlightTooltipPosition[] = ['top', 'right', 'left','bottom'];
+            positions[this.prefferedTooltipPosition]();
+            checkOrder.splice(checkOrder.indexOf(this.prefferedTooltipPosition), 1);
+            let isClipping = !this.isElementInViewport(container);
+
+            while (checkOrder.length && isClipping) {
+                positions[checkOrder[0]]();
+                checkOrder.splice(0, 1);
+                isClipping = !this.isElementInViewport(container); 
+            }
+
+            if(isClipping) {
+                positions[this.prefferedTooltipPosition]();
+            }
         }
     }
 
     async removeOverlay(showNext = false) {
-        const overlayEl = document.querySelector('.highlight-overlay');
-        const tooltipEl = document.querySelector('.highlight-tooltip');
+        const overlayEl = document.querySelector('.sp-highlight-overlay');
+        const tooltipEl = document.querySelector('.sp-highlight-tooltip');
 
         if (overlayEl) {
             this.renderer.addClass(overlayEl, 'fade-out');
@@ -149,7 +245,22 @@ export class ElementHighlighterComponent implements OnInit, OnDestroy {
 
         if (this.highlightNext?.length && showNext) {
             this.highlightService.setActiveElement(this.highlightNext);
+        } else {
+            this.highlightService.close();
+            this.renderer.removeClass(document.body, 'sp-highlight-overlay-active');
         }
 
     }
+
+    isElementInViewport (el: any) {
+        var rect = el.getBoundingClientRect();
+    
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+        );
+    }
 }
+

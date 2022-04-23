@@ -1,5 +1,9 @@
 
-    .highlighted {
+    .sp-highlight-overlay-active {
+        overflow: hidden !important;
+    }
+    
+    .sp-highlighted {
         z-index: 9999;
         position: relative;
 
@@ -10,7 +14,7 @@
         //animation: infinite-pulse 1s ease-in-out infinite;
     }
 
-    .highlight-overlay {
+    .sp-highlight-overlay {
         --animation-duration: 500ms;
 
         position: fixed;
@@ -28,27 +32,62 @@
         }
     }
 
-    .highlight-tooltip {
+    .sp-highlight-tooltip {
         --animation-duration: 500ms;
         z-index: 99999;
         position: fixed;
-        background: white;
-        padding: 1rem 1rem 1rem 1rem;
+        background-color: white;
         opacity: 1;
         border-radius: 3px;
         animation: fade-in var(--animation-duration) ease-in-out;
         //clip-path: polygon(0% 0%, 100% 0, 100% 80%, 50% 100%, 0 80%);
 
-        &:before {
+        &.top::before {
             content: "";
             width: .5rem;
             height: .5rem;
-            background-color: white;
+            background-color: inherit;
             position: absolute;
             clip-path: polygon(50% 80%, 0 0, 100% 0);
             bottom: 0;
             left: 50%;
             transform: translate(-50%, 100%);
+        }
+
+        &.right::before {
+            content: "";
+            width: .5rem;
+            height: .5rem;
+            background-color: inherit;
+            position: absolute;
+            clip-path: polygon(50% 80%, 0 0, 100% 0);
+            top: 50%;
+            left: 0;
+            transform: translate(-100%, -50%) rotate(90deg);
+        }
+
+        &.left::before {
+            content: "";
+            width: .5rem;
+            height: .5rem;
+            background-color: inherit;
+            position: absolute;
+            clip-path: polygon(50% 80%, 0 0, 100% 0);
+            top: 50%;
+            right: 0;
+            transform: translate(100%, -50%) rotate(-90deg);
+        }
+
+        &.bottom::before {
+            content: "";
+            width: .5rem;
+            height: .5rem;
+            background-color: inherit;
+            position: absolute;
+            clip-path: polygon(50% 80%, 0 0, 100% 0);
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -100%) rotate(180deg);
         }
 
         &.fade-out {

@@ -18,15 +18,21 @@
     <h1 highlightElement="test2" (click)="closeOverlay()">test</h1> -->
 
     <div class="grid">
-        <div spHighlight="test1" spHighlightNext="test2" spHighlightTooltip="Here you can do stuff" (click)="updateOverlay('test1')">
+        <div spHighlight="test1" spHighlightTooltip="tooltip" spHighlightNext="test2" spHighlightTooltipPosition="top" (click)="updateOverlay('test1')">
             <div>Test 1</div>
         </div>
-        <div spHighlight="test2" spHighlightNext="test3">Test 2</div>
+        <div spHighlight="test2" spHighlightNext="test3" spHighlightTooltip="adasdsd" spHighlightTooltipPosition="right">Test 2</div>
         <div spHighlight="test3" spHighlightNext="test4">Test 3</div>
         <div spHighlight="test4" (spHighlightBackDropClick)="onBackDropClick($event)"
-            spHighlightDisableBackdropAutoClose spHighlightTooltip="This is the end">Test 4</div>
+            spHighlightDisableBackdropAutoClose [spHighlightTooltip]="tooltip">Test 4</div>
     </div>
     <!-- <router-outlet></router-outlet> -->
 </main>
+
+<ng-template #tooltip>
+    <div style="background-color: var(--mat-primary); height: 100px; width: 100px; border-radius: 3px;">
+        <div style="color: #fff;">Tooltip</div>
+    </div>
+</ng-template>
 
 <div class="overlay"></div>
