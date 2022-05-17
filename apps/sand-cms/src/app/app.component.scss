@@ -1,0 +1,46 @@
+header {
+    position: fixed;
+    top: .5rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* input {
+        border-radius: 1rem;
+        border: 0;
+        padding: .25rem 1rem;
+        background: rgba(0, 0, 0, 0.1);
+        color: var(--mat-primary-contrast);
+        &:focus {
+            outline: none;
+        }
+    } */
+
+    .mat-form-field {
+        border-radius: 1rem;
+        background: rgba(0, 0, 0, 0.1);
+        color: var(--mat-primary-contrast);
+        padding: 0 .5rem;
+        .mat-icon {
+            font-size: 20px;
+            line-height: 20px;
+            width: 20px;
+            height: 20px;
+            transform: translateY(25%);
+        }
+
+        &::ng-deep {
+
+            .mat-form-field-infix {
+                border-top: 0 !important;
+            }
+
+            .mat-form-field-wrapper {
+                padding-bottom: 0 !important;
+            }
+
+            .mat-form-field-underline {
+                display: none;
+            }
+        }
+    }
+}

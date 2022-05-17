@@ -11,23 +11,38 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$sand-ui-primary: mat.define-palette(mat.$indigo-palette);
-$sand-ui-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$sand-ui-primary: mat.define-palette(mat.$deep-purple-palette);
+$sand-ui-accent: mat.define-palette(mat.$cyan-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $sand-ui-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$sand-ui-theme: mat.define-light-theme((color: (primary: $sand-ui-primary,
+$sand-ui-theme: mat.define-dark-theme((color: (primary: $sand-ui-primary,
             accent: $sand-ui-accent,
             warn: $sand-ui-warn,
         )));
 
 :root {
+    $colors: (
+        primary: $sand-ui-primary,
+        accent: $sand-ui-accent,
+        warn: $sand-ui-warn,
+    );
 
-    --mat-primary: #{mat.get-color-from-palette($sand-ui-primary, 500)};
-    --mat-accent: #{mat.get-color-from-palette($sand-ui-accent, 500)};
+    $weights: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, A100, A200, A400, A700;
+
+    @each $name, $color in $colors {
+        --mat-#{$name}: #{mat.get-color-from-palette($color, 500)};
+        --mat-#{$name}-contrast: #{mat.get-color-from-palette($color, 500-contrast)};
+
+        @each $weight in $weights {
+            --mat-#{$name}-#{$weight}: #{mat.get-color-from-palette($color, $weight)};
+            --mat-#{$name}-#{$weight}-contrast: #{mat.get-color-from-palette($color, #{$weight}-contrast)};
+        }
+    }
+    
 }
 
 
@@ -41,9 +56,12 @@ $sand-ui-theme: mat.define-light-theme((color: (primary: $sand-ui-primary,
 html,
 body {
     height: 100%;
+    background: var(--mat-primary-600);
 }
 
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

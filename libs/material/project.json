@@ -6,7 +6,9 @@
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/material"],
+      "outputs": [
+        "coverage/libs/material"
+      ],
       "options": {
         "jestConfig": "libs/material/jest.config.js",
         "passWithNoTests": true

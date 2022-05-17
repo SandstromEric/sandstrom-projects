@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
@@ -8,4 +8,8 @@ import { MatRippleModule } from '@angular/material/core';
         MatRippleModule
     ]
 })
-export class MaterialModule { }
+export class MaterialModule {
+    constructor(private matIconRegistry: MatIconRegistry) {
+        this.matIconRegistry.setDefaultFontSetClass('material-symbols-rounded');
+    }
+}

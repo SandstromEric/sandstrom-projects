@@ -3,7 +3,11 @@
   "projects": {
     "element-highlighter": "libs/element-highlighter",
     "material": "libs/material",
+    "sand-cms": "apps/sand-cms",
+    "sand-cms-e2e": "apps/sand-cms-e2e",
     "sand-ui": "apps/sand-ui",
-    "sand-ui-e2e": "apps/sand-ui-e2e"
+    "sand-ui-e2e": "apps/sand-ui-e2e",
+    "windows-web": "apps/windows-web",
+    "windows-web-e2e": "apps/windows-web-e2e"
   }
 }

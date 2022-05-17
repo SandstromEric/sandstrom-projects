@@ -2,9 +2,12 @@
     display: grid;
     width: 100%;
     height: 100%;
-    background-color: #fafafa;
     grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr;
+
+    /* > *:not(main) {
+        background: var(--mat-primary);
+    } */
 }
 
 header {
@@ -12,6 +15,7 @@ header {
     padding-left: 1rem;
     box-sizing: border-box;
     height: 3rem;
+    
 }
 
 aside {
@@ -47,6 +51,8 @@ aside {
             cursor: pointer;
             user-select: none;
             transition: all 0.3s ease-in-out;
+            color: var(--mat-accent-A400);
+            font-weight: bold;
 
             .mat-icon {
                 padding: .5rem;
@@ -71,14 +77,12 @@ aside {
 }
 
 main {
-    border-top: 1px solid #e0e0e0;
-    border-left: 1px solid #e0e0e0;
     border-radius: 3px 0 0 0;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
     overflow: auto;
-    background-color: white;
+    background-color: var(--mat-primary-600);
     z-index: 9999;
 }
 
@@ -100,7 +104,7 @@ main {
         font-size: 1rem;
         font-weight: bold;
         transform: translate(-50%, -50%);
-        color: var(--mat-primary);
+        color: var(--mat-primary-contrast);
     }
 
     >span:last-child {
@@ -113,11 +117,11 @@ main {
     }
 
     &:hover {
-        background: var(--mat-primary);
-        color: white;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: var(--mat-primary-contrast);
 
         >span:first-child {
-            color: white;
+            color: var(--mat-primary-900-contrast);
         }
     }
 }
@@ -127,7 +131,7 @@ main {
 }
 
 .grid {
-    background-color: #e0e0e0;
+    
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -135,13 +139,15 @@ main {
     width: 100%;
     box-sizing: border-box;
     overflow: auto;
-    gap: 1rem;
-    padding: 1rem;
+    gap: 2rem;
+    padding: 2rem;
     transform: translate(0,0);
+
     >div {
-        border-radius: 5px;
+        border-radius: 3px;
         justify-items: center;
         align-content: center;
-        background-color: #fafafa;
+        background-color: var(--mat-primary-400);
+        //opacity: 0.5;
     }
 }

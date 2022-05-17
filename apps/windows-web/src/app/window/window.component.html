@@ -1,0 +1,24 @@
+<header #header [style.visibility]="pinned ? 'hidden': 'visible'">
+    <div class="window-meta">
+        <mat-icon>{{applicationRef?.instance?.icon}}</mat-icon>
+        <span>{{applicationRef?.instance?.name}}</span>
+    </div>
+    <div class="window-actions">
+        <mat-icon matRipple>minimize</mat-icon>
+        <mat-icon matRipple (click)="toggleFullscreen()">{{!fullscreen ? 'fullscreen' : 'close_fullscreen'}}</mat-icon>
+        <mat-icon matRipple color="warn" (click)="exit()">close</mat-icon>
+    </div>
+</header>
+
+<main>
+    <ng-template #window></ng-template>
+</main>
+
+<footer>
+
+</footer>
+
+<div class="resizer" cdkDrag (cdkDragStarted)="cdkDragResizeStarted()" *ngIf="!fullscreen && !pinned"
+    (cdkDragMoved)="cdkDragResizeMoved($event)" (cdkDragEnded)="cdkDragResizeEnded()">
+    <mat-icon>south_east</mat-icon>
+</div>

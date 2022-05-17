@@ -1,0 +1,52 @@
+<header *ngIf="pinnedWindows$ | async as windows" cdkDropList (cdkDropListDropped)="cdkDragDropped($event)"
+    cdkDropListOrientation="horizontal" class="drop-list" [class.empty]="!windows.length">
+    <div cdkDrag *ngFor="let window of windows" class="drag-box"
+        [class.active]="windowRefs[window.id]?.instance?.active" (click)="setWindowAsActive(window)"
+        (cdkDragReleased)="cdkDragReleased($event, window)" (cdkDragMoved)="cdkDragMoved($event)">
+        <mat-icon>{{windowRefs[window.id]?.instance?.applicationRef?.instance?.icon}}</mat-icon>
+        <span>{{windowRefs[window.id]?.instance?.applicationRef?.instance?.name}}</span>
+    </div>
+</header>
+
+<main>
+    <ng-template #windows></ng-template>
+</main>
+
+<footer class="mat-elevation-z4">
+    <div class="left">
+        <div [class.active]="leftMenuOpened" spElementClickBounce>
+            <mat-icon>menu</mat-icon>
+        </div>
+    </div>
+    <div class="middle">
+        <div [class.active]="homeMenuOpened" spElementClickBounce>
+            <mat-icon>home</mat-icon>
+        </div>
+        <div>
+            <mat-icon style="font-weight: bold;" spElementClickBounce>search</mat-icon>
+        </div>
+        <div class="window-shortcut" *ngFor="let window of windowRefs | keyvalue"
+            (mousedown)="setWindowAsActive({id: window.key})"
+            [class.active]="window.value.instance.active && !homeMenuOpened && !leftMenuOpened && !rightMenuOpened"
+            spElementClickBounce>
+            <mat-icon>{{window.value.instance.applicationRef.instance.icon}}</mat-icon>
+        </div>
+    </div>
+    <div class="right">
+        <div [class.active]="rightMenuOpened" spElementClickBounce>
+            <mat-icon>settings</mat-icon>
+        </div>
+    </div>
+</footer>
+
+<div class="left-menu drawer mat-elevation-z4" [class.opened]="leftMenuOpened">
+
+</div>
+
+<div class="home-menu drawer mat-elevation-z4" [class.opened]="homeMenuOpened">
+
+</div>
+
+<div class="right-menu drawer mat-elevation-z4" [class.opened]="rightMenuOpened">
+
+</div>

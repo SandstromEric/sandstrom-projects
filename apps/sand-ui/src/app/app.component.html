@@ -3,7 +3,7 @@
     <span>UI</span>
 </div>
 <header>
-    <h1>Header</h1>
+    
 </header>
 <aside [class.opened]="menuOpened">
     <ul>
@@ -11,19 +11,23 @@
             <mat-icon>home</mat-icon>
             <span>Dashboard</span>
         </li>
+        <li matRipple>
+            <mat-icon>list</mat-icon>
+            <span>Leaderboards</span>
+        </li>
     </ul>
 </aside>
-<main>
+<main class="mat-elevation-z4"> 
     <!-- <h1 highlightElement="test1" highlightNext="test2" (click)="updateOverlay('test1')">test</h1>
     <h1 highlightElement="test2" (click)="closeOverlay()">test</h1> -->
 
-    <div class="grid">
-        <div spHighlight="test1" spHighlightTooltip="tooltip" spHighlightNext="test2" spHighlightTooltipPosition="top" (click)="updateOverlay('test1')">
+    <div class="grid" >
+        <div spHighlight="test1" class="mat-elevation-z4" spHighlightTooltip="tooltip" spHighlightNext="test2" spHighlightTooltipPosition="top">
             <div>Test 1</div>
         </div>
-        <div spHighlight="test2" spHighlightNext="test3" spHighlightTooltip="adasdsd" spHighlightTooltipPosition="right">Test 2</div>
-        <div spHighlight="test3" spHighlightNext="test4">Test 3</div>
-        <div spHighlight="test4" (spHighlightBackDropClick)="onBackDropClick($event)"
+        <div spHighlight="test2" class="mat-elevation-z4" spHighlightNext="test3" spHighlightTooltip="adasdsd" spHighlightTooltipPosition="right">Test 2</div>
+        <div spHighlight="test3" class="mat-elevation-z4" spHighlightNext="test4">Test 3</div>
+        <div spHighlight="test4" class="mat-elevation-z4" (spHighlightBackDropClick)="onBackDropClick($event)"
             spHighlightDisableBackdropAutoClose [spHighlightTooltip]="tooltip">Test 4</div>
     </div>
     <!-- <router-outlet></router-outlet> -->

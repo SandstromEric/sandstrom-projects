@@ -1,0 +1,8 @@
+<div class="messages">
+    <!-- <div>Not a valid word</div> -->
+</div>
+<ng-container *ngFor="let guess of guesses; let i = index;">
+    <ng-container *ngFor="let char of createArrayOfLength; let j = index;">
+        <div class="letter" [ngClass]="evaluation[i][j]">{{guess[char]}}</div>
+    </ng-container>
+</ng-container>

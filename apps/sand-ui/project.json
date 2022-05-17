@@ -6,7 +6,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/sand-ui",
         "index": "apps/sand-ui/src/index.html",
@@ -14,8 +16,14 @@
         "polyfills": "apps/sand-ui/src/polyfills.ts",
         "tsConfig": "apps/sand-ui/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/sand-ui/src/favicon.ico", "apps/sand-ui/src/assets"],
-        "styles": ["apps/sand-ui/src/styles.scss"],
+        "assets": [
+          "apps/sand-ui/src/favicon.ico",
+          "apps/sand-ui/src/assets"
+        ],
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/sand-ui/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -80,7 +88,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/sand-ui"],
+      "outputs": [
+        "coverage/apps/sand-ui"
+      ],
       "options": {
         "jestConfig": "apps/sand-ui/jest.config.js",
         "passWithNoTests": true

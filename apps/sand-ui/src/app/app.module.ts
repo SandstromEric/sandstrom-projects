@@ -6,21 +6,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Route, RouterModule } from '@angular/router';
 import { MaterialModule } from '@sandstrom-projects/material';
 import { ElementHighlighterModule } from '@sandstroms/element-highlighter';
+import { FileExplorerComponent } from './apps/file-explorer/file-explorer.component';
 
-const routes: Route[] = [
-    { path: '', redirectTo: '/', pathMatch: 'full' },
-];
+const routes: Route[] = [{ path: '', redirectTo: '/', pathMatch: 'full' }];
 
 @NgModule({
-    declarations: [AppComponent],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        RouterModule.forRoot(routes),
-        MaterialModule,
-        ElementHighlighterModule
-    ],
-    providers: [],
-    bootstrap: [AppComponent],
+  declarations: [AppComponent, FileExplorerComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
+    MaterialModule,
+    ElementHighlighterModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
