@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'element-highlighter',
+/* eslint-disable */
+export default {
+  displayName: 'sand-ui',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/element-highlighter',
+  coverageDirectory: '../../coverage/apps/sand-ui',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

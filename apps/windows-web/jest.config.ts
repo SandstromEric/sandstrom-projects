@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'sand-cms',
+/* eslint-disable */
+export default {
+  displayName: 'windows-web',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/apps/sand-cms',
+  coverageDirectory: '../../coverage/apps/windows-web',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

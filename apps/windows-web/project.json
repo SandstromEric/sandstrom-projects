@@ -1,6 +1,6 @@
 {
+  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
   "projectType": "application",
-  "root": "apps/windows-web",
   "sourceRoot": "apps/windows-web/src",
   "prefix": "sandstrom-projects",
   "targets": {
@@ -85,7 +85,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/windows-web"],
       "options": {
-        "jestConfig": "apps/windows-web/jest.config.js",
+        "jestConfig": "apps/windows-web/jest.config.ts",
         "passWithNoTests": true
       }
     }

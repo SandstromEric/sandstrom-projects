@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'material',
+/* eslint-disable */
+export default {
+  displayName: 'sand-cms',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/libs/material',
+  coverageDirectory: '../../coverage/apps/sand-cms',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

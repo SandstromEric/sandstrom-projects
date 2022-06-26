@@ -1,14 +1,12 @@
 {
+  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
   "projectType": "application",
-  "root": "apps/sand-cms",
   "sourceRoot": "apps/sand-cms/src",
   "prefix": "sandstrom-projects",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/sand-cms",
         "index": "apps/sand-cms/src/index.html",
@@ -16,13 +14,8 @@
         "polyfills": "apps/sand-cms/src/polyfills.ts",
         "tsConfig": "apps/sand-cms/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/sand-cms/src/favicon.ico",
-          "apps/sand-cms/src/assets"
-        ],
-        "styles": [
-          "apps/sand-cms/src/styles.scss"
-        ],
+        "assets": ["apps/sand-cms/src/favicon.ico", "apps/sand-cms/src/assets"],
+        "styles": ["apps/sand-cms/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -87,11 +80,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/sand-cms"
-      ],
+      "outputs": ["coverage/apps/sand-cms"],
       "options": {
-        "jestConfig": "apps/sand-cms/jest.config.js",
+        "jestConfig": "apps/sand-cms/jest.config.ts",
         "passWithNoTests": true
       }
     }
