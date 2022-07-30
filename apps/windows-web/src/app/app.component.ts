@@ -1,7 +1,8 @@
 import { CdkDragDrop, CdkDragEnd, CdkDragMove, CdkDragRelease, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ChangeDetectorRef, Component, ComponentRef, HostListener, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ComponentRef, HostListener, Injector, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FileExplorerComponent } from './apps/file-explorer/file-explorer.component';
 import { OrdleComponent } from './apps/ordle/ordle.component';
+import { TalentTreeComponent } from './apps/talent-tree/talent-tree.component';
 import { WindowService } from './services/window.service';
 import { WindowComponent } from './window/window.component';
 
@@ -10,7 +11,7 @@ import { WindowComponent } from './window/window.component';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
     @ViewChild('windows', { read: ViewContainerRef },) windows!: ViewContainerRef;
 
     applications = [FileExplorerComponent, FileExplorerComponent, FileExplorerComponent, FileExplorerComponent]
@@ -85,10 +86,12 @@ export class AppComponent implements OnInit {
                 const ref = this.windows.createComponent(WindowComponent, { injector });
                 this.windowRefs[data.id] = ref;
             } */
-            for (let step = 0; step < 1; step++) {
-                const data = { id: this.generateId, component: OrdleComponent };
+            const windows = [{clazz: 'rogue', spec: 'assassination'}, {clazz: 'evoker', spec: 'devastation'}]
+            for (const window of windows) {
+                const data = { id: this.generateId, component: TalentTreeComponent, applicationData: window };
                 const injector = Injector.create({ providers: [{ provide: 'Application', useValue: data }] });
                 const ref = this.windows.createComponent(WindowComponent, { injector });
+                
                 this.windowRefs[data.id] = ref;
             }
         }, 0);
@@ -133,4 +136,74 @@ export class AppComponent implements OnInit {
     toggleRightMenu() {
         this.rightMenuOpened = !this.rightMenuOpened;
     }
+}
+
+const talentTree = {
+    clazz: 'Rogue',
+    spec: 'Assassination',
+    gridLengthx: 18,
+    gridLengthy: 10,
+    startingTalent: 0,
+    talents: [
+        {   
+            id: 0,
+            name: 'Garrote',
+            col: 3,
+            row: 1,
+            requirements: null,
+            totalPoints: 1,
+            type: 'active'
+        },
+        {
+            id: 1,
+            name: 'Blind',
+            col: 9,
+            row: 1,
+            requirements: null,
+            totalPoints: 1,
+            type: 'active'
+        },
+        {
+            id: 2,
+            name: 'Sap',
+            col: 15,
+            row: 1,
+            requirements: null,
+            totalPoints: 1,
+            type: 'active'
+        },
+        {
+            id: 3,
+            name: 'Evasion',
+            col: 5,
+            row: 2,
+            requirements: {
+                id: 0
+            },
+            totalPoints: 1,
+            type: 'active'
+        },
+        {
+            id: 4,
+            name: 'Feint',
+            col: 9,
+            row: 2,
+            requirements: {
+                id: 1
+            },
+            totalPoints: 1,
+            type: 'active'
+        },
+        {
+            id: 31224,
+            name: 'Cloak of Shadows',
+            col: 13,
+            row: 2,
+            requirements: {
+                id: 2
+            },
+            totalPoints: 1,
+            type: 'active'
+        },
+    ]
 }

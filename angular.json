@@ -1,6 +1,8 @@
 {
   "version": 2,
   "projects": {
+    "autoclicker-proto": "apps/autoclicker-proto",
+    "autoclicker-proto-e2e": "apps/autoclicker-proto-e2e",
     "element-highlighter": "libs/element-highlighter",
     "material": "libs/material",
     "sand-cms": "apps/sand-cms",

@@ -63,7 +63,7 @@ export class WindowComponent implements OnInit, AfterViewInit, OnDestroy {
         private sanitizer: DomSanitizer,
         private cdr: ChangeDetectorRef,
         private windowService: WindowService,
-        @Inject('Application') public data: { id: string, component: Type<Application> }
+        @Inject('Application') public data: { id: string, component: Type<Application>, applicationData?: any },
     ) {
         this.dragEl = this.cdkDrag.createDrag(this.element.nativeElement);
     }
@@ -118,17 +118,22 @@ export class WindowComponent implements OnInit, AfterViewInit, OnDestroy {
 
     toggleFullscreen() {
         this.fullscreen = !this.fullscreen;
-        const window: HTMLElement = this.element.nativeElement;
+        const windowEl: HTMLElement = this.element.nativeElement;
 
         if (this.fullscreen) {
-            this.windowWidth = window.clientWidth;
-            this.windowHeight = window.clientHeight;
-            this.renderer.setStyle(window, 'width', `100%`);
-            this.renderer.setStyle(window, 'height', `100%`);
+            this.windowWidth = windowEl.clientWidth;
+            this.windowHeight = windowEl.clientHeight;
+            this.renderer.setStyle(windowEl, 'width', `100%`);
+            this.renderer.setStyle(windowEl, 'height', `100%`);
         } else {
-            this.renderer.setStyle(window, 'width', `${this.windowWidth}px`);
-            this.renderer.setStyle(window, 'height', `${this.windowHeight}px`);
+            this.renderer.setStyle(windowEl, 'width', `${this.windowWidth}px`);
+            this.renderer.setStyle(windowEl, 'height', `${this.windowHeight}px`);
         }
+        setTimeout(() => {
+           window.dispatchEvent(new Event('resize')); 
+        }, 300);
+        
+        
     }
 
     
@@ -139,6 +144,7 @@ export class WindowComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     cdkDragResizeMoved(event: CdkDragMove) {
+        window.dispatchEvent(new Event('resize'));
         this.renderer.setStyle(this.element.nativeElement, 'width', `${this.startDragWidth + event.distance.x}px`);
         this.renderer.setStyle(this.element.nativeElement, 'height', `${this.startDragHeight + event.distance.y}px`);
         this.windowWidth = this.startDragWidth + event.distance.x;

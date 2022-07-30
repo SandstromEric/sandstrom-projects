@@ -1,0 +1,101 @@
+:host {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+}
+
+.talent-tree-header {
+    h3 {
+        text-transform: capitalize;
+        padding: 0 1rem;
+    }
+}
+
+.talents-container {
+    display: grid;
+    grid-template-columns: repeat(18, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    width: 100%;
+    position: relative;
+    z-index: 99;
+    box-sizing: border-box;
+
+    >div[class*="talent-"] {
+        margin: 20%;
+    }
+
+    .seperator-8 {
+        height: 3px;
+        border-top: 1px dashed #000;
+    }
+
+    .seperator-20 {
+        grid-area: 8 / 1 / 8 / 19;
+        height: 3px;
+        border-top: 1px dashed #000;
+    }
+
+    &.spec {
+        border-left: 1px dashed #000;
+    }
+}
+
+.talent {
+    border: 2px solid #000;
+    aspect-ratio: 1 / 1;
+
+    display: block;
+    //background-image: url("https://wow.zamimg.com/images/wow/icons/large/inv_misc_questionmark.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+
+    filter: grayscale(100%);
+
+    &.type-1 {
+        border-radius: 3px;
+    }
+
+    &.type-2 {
+        border-radius: 50%;
+    }
+
+    &.type-3 {
+        clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        padding: 2px;
+        background-color: #000;
+    }
+
+    &.available {
+        border-color: yellow;
+        filter: grayscale(0%);
+    }
+
+    &.full {
+        border-color: green;
+        filter: grayscale(0%);
+    }
+
+    .points {
+        position: absolute;
+        bottom: -7px;
+        right: -7px;
+        background-color: #000;
+        color: #fff;
+        font-size: 12px;
+        padding: 0 .25rem;
+        border-radius: 7px;
+        box-sizing: border-box;
+    }
+
+}
+
+.connections {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}

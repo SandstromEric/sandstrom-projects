@@ -4,6 +4,7 @@
     grid-template-rows: 2rem 1fr auto;
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
     border-radius: 5px;
     overflow: hidden;
     transition: all 0.3s ease-in-out;
@@ -77,6 +78,7 @@ main {
     position: absolute;
     bottom: 0;
     right: 0;
+    z-index: 9999;
     cursor: se-resize;
     transform: translate3d(0, 0, 0) !important;
 

@@ -1,28 +1,23 @@
 {
-  "$schema": "..\\..\\node_modules\\nx\\schemas\\project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/windows-web/src",
+  "sourceRoot": "apps/autoclicker-proto/src",
   "prefix": "sandstrom-projects",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/windows-web",
-        "index": "apps/windows-web/src/index.html",
-        "main": "apps/windows-web/src/main.ts",
-        "polyfills": "apps/windows-web/src/polyfills.ts",
-        "tsConfig": "apps/windows-web/tsconfig.app.json",
+        "outputPath": "dist/apps/autoclicker-proto",
+        "index": "apps/autoclicker-proto/src/index.html",
+        "main": "apps/autoclicker-proto/src/main.ts",
+        "polyfills": "apps/autoclicker-proto/src/polyfills.ts",
+        "tsConfig": "apps/autoclicker-proto/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
-          "apps/windows-web/src/favicon.ico",
-          "apps/windows-web/src/assets"
+          "apps/autoclicker-proto/src/favicon.ico",
+          "apps/autoclicker-proto/src/assets"
         ],
-        "styles": [
-          "apps/windows-web/src/styles.scss"
-        ],
+        "styles": ["apps/autoclicker-proto/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -41,8 +36,8 @@
           ],
           "fileReplacements": [
             {
-              "replace": "apps/windows-web/src/environments/environment.ts",
-              "with": "apps/windows-web/src/environments/environment.prod.ts"
+              "replace": "apps/autoclicker-proto/src/environments/environment.ts",
+              "with": "apps/autoclicker-proto/src/environments/environment.prod.ts"
             }
           ],
           "outputHashing": "all"
@@ -62,39 +57,34 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "windows-web:build:production"
+          "browserTarget": "autoclicker-proto:build:production"
         },
         "development": {
-          "browserTarget": "windows-web:build:development"
+          "browserTarget": "autoclicker-proto:build:development"
         }
-      },
-      "options": {
-        "proxyConfig": "apps/windows-web/proxy.conf.json"
       },
       "defaultConfiguration": "development"
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "windows-web:build"
+        "browserTarget": "autoclicker-proto:build"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "apps/windows-web/src/**/*.ts",
-          "apps/windows-web/src/**/*.html"
+          "apps/autoclicker-proto/**/*.ts",
+          "apps/autoclicker-proto/**/*.html"
         ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/windows-web"
-      ],
+      "outputs": ["coverage/apps/autoclicker-proto"],
       "options": {
-        "jestConfig": "apps/windows-web/jest.config.ts",
+        "jestConfig": "apps/autoclicker-proto/jest.config.ts",
         "passWithNoTests": true
       }
     }

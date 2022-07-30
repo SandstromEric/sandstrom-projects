@@ -1,0 +1,27 @@
+<ng-container *ngIf="!loading">
+    <div *ngFor="let tree of talentTrees | keyvalue; let i = index">
+        <div class="talent-tree-header">
+            <h3>{{tree.value.name}}</h3>
+        </div>
+        <div class="talents-container {{tree.key}}">
+            <div *ngFor="let talent of tree.value.staticTalents | keyvalue; trackBy: trackByTalent;"
+                [ngStyle]="{'grid-area': talent.value.row + ' / ' + talent.value.col + ' / ' + talent.value.row + ' / ' + (talent.value.col + 2)}"
+                [class]="'talent-'+talent.value.spellId+' cell-'+talent.value.cell">
+                <a [href]="talent.value.talent" class="talent type-{{talent.value.type}}" data-wh-rename-link="true"
+                    [ngStyle]="{'background-image':'url(' + talent.value.icon + ')'}"
+                    *ngIf="tree.value.dynamicTalents.get(''+talent.value.cell) as dc" data-wh-tooltip-mode="icon"
+                    (click)="$event.preventDefault();" (contextmenu)="$event.preventDefault(); refundPoint(talent.value.cell);"
+                    [class.available]="dc.available" [class.full]="dc?.spent === talent.value.points">
+                    <div class="points" *ngIf="talent.value.points">{{dc?.spent}}/{{talent.value.points}}</div>
+                </a>
+            </div>
+
+            <div class="seperator-8" [ngStyle]="{'grid-area': checkpoints[0] + 1+ '/ 1 /'+ checkpoints[0] + 1 + '/ 19'}"></div>
+            <div class="seperator-20" [ngStyle]="{'grid-area': checkpoints[1] + 1+ '/ 1 /'+ checkpoints[1] + 1 + '/ 19'}"></div>
+            <svg #parent class="connections">
+                <line sandstromProjectsTalentConnection *ngFor="let connection of tree.value.connections" [points]="connection"
+                    [parent]="parent" [tree]="tree.key"></line>
+            </svg>
+        </div>
+    </div>
+</ng-container>

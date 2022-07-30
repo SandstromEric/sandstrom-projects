@@ -1,10 +1,10 @@
 <header *ngIf="pinnedWindows$ | async as windows" cdkDropList (cdkDropListDropped)="cdkDragDropped($event)"
     cdkDropListOrientation="horizontal" class="drop-list" [class.empty]="!windows.length">
     <div cdkDrag *ngFor="let window of windows" class="drag-box"
-        [class.active]="windowRefs[window.id]?.instance?.active" (click)="setWindowAsActive(window)"
+        [class.active]="windowRefs[window.id].instance.active" (click)="setWindowAsActive(window)"
         (cdkDragReleased)="cdkDragReleased($event, window)" (cdkDragMoved)="cdkDragMoved($event)">
-        <mat-icon>{{windowRefs[window.id]?.instance?.applicationRef?.instance?.icon}}</mat-icon>
-        <span>{{windowRefs[window.id]?.instance?.applicationRef?.instance?.name}}</span>
+        <mat-icon>{{windowRefs[window.id].instance.applicationRef.instance.icon}}</mat-icon>
+        <span>{{windowRefs[window.id].instance.applicationRef.instance.name}}</span>
     </div>
 </header>
 

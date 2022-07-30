@@ -9,6 +9,9 @@ import { WindowComponent } from './window/window.component';
 import { FileExplorerComponent } from './apps/file-explorer/file-explorer.component';
 import { ElementClickBounceDirective } from './directives/element-click-bounce.directive';
 import { OrdleComponent } from './apps/ordle/ordle.component';
+import { TalentTreeComponent } from './apps/talent-tree/talent-tree.component';
+import { HttpClientModule } from '@angular/common/http';
+import { TalentConnectionDirective } from './directives/talent-connection.directive';
 
 @NgModule({
   declarations: [
@@ -17,12 +20,15 @@ import { OrdleComponent } from './apps/ordle/ordle.component';
     FileExplorerComponent,
     ElementClickBounceDirective,
     OrdleComponent,
+    TalentTreeComponent,
+    TalentConnectionDirective,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
     DragDropModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
