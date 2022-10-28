@@ -80,7 +80,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/sand-cms"],
+      "outputs": ["{workspaceRoot}/coverage/apps/sand-cms"],
       "options": {
         "jestConfig": "apps/sand-cms/jest.config.ts",
         "passWithNoTests": true

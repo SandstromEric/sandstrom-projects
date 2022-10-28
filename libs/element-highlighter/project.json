@@ -6,7 +6,7 @@
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/libs/element-highlighter"],
+      "outputs": ["{workspaceRoot}/dist/libs/element-highlighter"],
       "options": {
         "project": "libs/element-highlighter/ng-package.json"
       },
@@ -22,7 +22,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/element-highlighter"],
+      "outputs": ["{workspaceRoot}/coverage/libs/element-highlighter"],
       "options": {
         "jestConfig": "libs/element-highlighter/jest.config.ts",
         "passWithNoTests": true

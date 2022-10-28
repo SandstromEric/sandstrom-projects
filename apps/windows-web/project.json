@@ -6,9 +6,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/windows-web",
         "index": "apps/windows-web/src/index.html",
@@ -20,9 +18,7 @@
           "apps/windows-web/src/favicon.ico",
           "apps/windows-web/src/assets"
         ],
-        "styles": [
-          "apps/windows-web/src/styles.scss"
-        ],
+        "styles": ["apps/windows-web/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -90,9 +86,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/apps/windows-web"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/apps/windows-web"],
       "options": {
         "jestConfig": "apps/windows-web/jest.config.ts",
         "passWithNoTests": true

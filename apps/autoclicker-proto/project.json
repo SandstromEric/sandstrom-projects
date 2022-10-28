@@ -82,7 +82,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/autoclicker-proto"],
+      "outputs": ["{workspaceRoot}/coverage/apps/autoclicker-proto"],
       "options": {
         "jestConfig": "apps/autoclicker-proto/jest.config.ts",
         "passWithNoTests": true

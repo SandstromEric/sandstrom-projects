@@ -83,7 +83,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/sand-ui"],
+      "outputs": ["{workspaceRoot}/coverage/apps/sand-ui"],
       "options": {
         "jestConfig": "apps/sand-ui/jest.config.ts",
         "passWithNoTests": true
